@@ -22,40 +22,57 @@ import { default as CertifyIcon } from "@material-ui/icons/AccountBalanceWalletT
 import LinkIcon from "@material-ui/icons/Link";
 
 const styles = (theme) => ({
-  root: {
-    width: "100%",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    // marginLeft: -12,
-    // marginRight: 20,
-  },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
+    root: {
+      width: "100%",
     },
-    fontWeight: "900",
-  },
-  generateCertificate: {
-    display: "block",
-    paddingLeft: 30,
-  },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
+    grow: {
+      flexGrow: 1,
     },
-  },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
+    menuButton: {
+      // Styles for menu button
+    },
+    title: {
       display: "none",
+      [theme.breakpoints.up("sm")]: {
+        display: "block",
+      },
+      fontWeight: "900",
+      color: "#ffffff", // White text for dark theme
     },
-  },
-});
+    generateCertificate: {
+      display: "block",
+      paddingLeft: 30,
+      color: "#bbbbbb", // Light gray text for description
+    },
+    sectionDesktop: {
+      display: "none",
+      [theme.breakpoints.up("md")]: {
+        display: "flex",
+      },
+    },
+    sectionMobile: {
+      display: "flex",
+      [theme.breakpoints.up("md")]: {
+        display: "none",
+      },
+    },
+    appBar: {
+      backgroundColor: "#121212", // Dark background for AppBar
+      color: "#ffffff", // White text/icons
+    },
+    menuItem: {
+      justifyContent: "flex-end",
+      color: "#ffffff", // White text
+      backgroundColor: "#333333", // Dark background for menu items
+      "&:hover": {
+        backgroundColor: "#444444", // Slightly lighter background on hover
+      },
+    },
+    icon: {
+      color: "#ffffff", // White icons for dark mode
+    },
+  });
+  
 
 class NavBarInstitute extends React.Component {
   state = {
@@ -144,55 +161,54 @@ class NavBarInstitute extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="white">
-          <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Icon"
-              component={Link}
-              to="/"
-            >
-              <CertifyIcon color="primary" />
-            </IconButton>
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="primary"
-              noWrap
-            >
-              Certifi
-            </Typography>
-            <div className={classes.generateCertificate}>
-              <Typography
-                // variant="h6"
-                noWrap
-              >
-                Institution Credential Management Portal
-              </Typography>
-            </div>
-            <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-              <IconButton
-                aria-owns={isMenuOpen ? "material-appbar" : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <LinkIcon />
-              </IconButton>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton
-                aria-haspopup="true"
-                onClick={this.handleMobileMenuOpen}
-                color="inherit"
-              >
-                <LinkIcon />
-              </IconButton>
-            </div>
-          </Toolbar>
-        </AppBar>
+        <AppBar position="static" className={classes.appBar}>
+  <Toolbar>
+    <IconButton
+      className={classes.menuButton}
+      aria-label="Icon"
+      component={Link}
+      to="/"
+    >
+      <CertifyIcon className={classes.icon} /> {/* White icon */}
+    </IconButton>
+    <Typography
+      className={classes.title}
+      variant="h6"
+      noWrap
+    >
+      Certifi
+    </Typography>
+    <div className={classes.generateCertificate}>
+      <Typography
+        noWrap
+        className={classes.generateCertificate}
+      >
+        Institution Credential Management Portal
+      </Typography>
+    </div>
+    <div className={classes.grow} />
+    <div className={classes.sectionDesktop}>
+      <IconButton
+        aria-owns={isMenuOpen ? "material-appbar" : undefined}
+        aria-haspopup="true"
+        onClick={this.handleProfileMenuOpen}
+        className={classes.icon}
+      >
+        <LinkIcon />
+      </IconButton>
+    </div>
+    <div className={classes.sectionMobile}>
+      <IconButton
+        aria-haspopup="true"
+        onClick={this.handleMobileMenuOpen}
+        className={classes.icon}
+      >
+        <LinkIcon />
+      </IconButton>
+    </div>
+  </Toolbar>
+</AppBar>
+
         {renderMenu}
         {renderMobileMenu}
       </div>

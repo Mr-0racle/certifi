@@ -22,54 +22,40 @@ import { default as CertifyIcon } from "@material-ui/icons/AccountBalanceWalletT
 import LinkIcon from "@material-ui/icons/Link";
 
 const styles = (theme) => ({
-    root: {
-      width: "100%",
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      // Customize button styles if needed
-    },
-    title: {
-      display: "none",
-      [theme.breakpoints.up("sm")]: {
-        display: "block",
-      },
-      fontWeight: "900",
-      color: "#ffffff", // White text for dark mode
-    },
-    generateCertificate: {
+  root: {
+    width: "100%",
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    // marginLeft: -12,
+    // marginRight: 20,
+  },
+  title: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
       display: "block",
-      paddingLeft: 30,
     },
-    sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
-      },
-    },
-    sectionMobile: {
+    fontWeight: "900",
+  },
+  generateCertificate: {
+    display: "block",
+    paddingLeft: 30,
+  },
+  sectionDesktop: {
+    display: "none",
+    [theme.breakpoints.up("md")]: {
       display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
-      },
     },
-    appBar: {
-      backgroundColor: "#121212", // Dark background for AppBar
-      color: "#ffffff", // White text/icons
+  },
+  sectionMobile: {
+    display: "flex",
+    [theme.breakpoints.up("md")]: {
+      display: "none",
     },
-    menuItem: {
-      justifyContent: "flex-end",
-      color: "#ffffff", // White text
-      backgroundColor: "#333333", // Dark background for menu items
-      "&:hover": {
-        backgroundColor: "#444444", // Slightly lighter on hover
-      },
-    },
-  });
-  
-  
+  },
+});
 
 class NavBarLanding extends React.Component {
   state = {
@@ -158,45 +144,47 @@ class NavBarLanding extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" className={classes.appBar}>
-  <Toolbar>
-    <IconButton
-      className={classes.menuButton}
-      aria-label="Icon"
-      component={Link}
-      to="/"
-    >
-      <CertifyIcon style={{ color: "#ffffff" }} /> {/* White icon */}
-    </IconButton>
-    <Typography
-      className={classes.title}
-      variant="h6"
-      noWrap
-    >
-      Certifi
-    </Typography>
-    <div className={classes.grow} />
-    <div className={classes.sectionDesktop}>
-      <IconButton
-        aria-owns={isMenuOpen ? "material-appbar" : undefined}
-        aria-haspopup="true"
-        onClick={this.handleProfileMenuOpen}
-        style={{ color: "#ffffff" }} // White icon
-      >
-        <LinkIcon />
-      </IconButton>
-    </div>
-    <div className={classes.sectionMobile}>
-      <IconButton
-        aria-haspopup="true"
-        onClick={this.handleMobileMenuOpen}
-        style={{ color: "#ffffff" }} // White icon
-      >
-        <LinkIcon />
-      </IconButton>
-    </div>
-  </Toolbar>
-</AppBar>
+        <AppBar position="static" color="white">
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Icon"
+              component={Link}
+              to="/"
+            >
+              <CertifyIcon color="primary" />
+            </IconButton>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              color="primary"
+              noWrap
+            >
+              Certifi
+            </Typography>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <IconButton
+                aria-owns={isMenuOpen ? "material-appbar" : undefined}
+                aria-haspopup="true"
+                onClick={this.handleProfileMenuOpen}
+                color="inherit"
+              >
+                <LinkIcon />
+              </IconButton>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-haspopup="true"
+                onClick={this.handleMobileMenuOpen}
+                color="inherit"
+              >
+                <LinkIcon />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
         {renderMenu}
         {renderMobileMenu}
       </div>

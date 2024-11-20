@@ -56,12 +56,14 @@ const ListText = withStyles({
     padding: "0.5vh",
     margin: 0,
     width: "90%",
+    color: "#ffffff", // Light text for dark mode
   },
 })(ListItemText);
 
 const styles = (theme) => ({
   container: {
     display: "flex",
+    backgroundColor: "#121212", // Dark background
   },
   paper: {
     [theme.breakpoints.up("sm")]: {
@@ -78,8 +80,9 @@ const styles = (theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`,
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+    backgroundColor: "#1e1e1e", // Darker paper background
+    color: "#ffffff", // Light text
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -87,10 +90,11 @@ const styles = (theme) => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
+    backgroundColor: "#3f51b5", // Button color for dark mode
+    color: "#ffffff", // Button text color
   },
   media: {
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`,
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   imgstyles: {
     maxWidth: "70vw",
@@ -101,14 +105,15 @@ const styles = (theme) => ({
   },
   courseItem: {
     width: "100%",
-    background: "#73737312",
+    background: "#333333", // Dark background for course items
     borderRadius: "100px",
     marginBottom: "10px",
     paddingLeft: "25px",
-    marginBottom: "10px",
-    border: "1px solid #d8d8d8",
+    border: "1px solid #555555", // Subtle border for dark mode
+    color: "#ffffff", // Light text for course items
   },
 });
+
 
 class Admin extends React.Component {
   state = {
