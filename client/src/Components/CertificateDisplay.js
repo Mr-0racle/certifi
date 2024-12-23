@@ -115,22 +115,32 @@ function CertificateDisplay() {
   const connectWeb3 = () => {
     const BLOCKCHAIN_ENDPOINT = process.env.REACT_APP_BLOCKCHAIN_ENDPOINT || "http://localhost:7545";
     
-    web3 = new Web3(
-      new Web3.providers.HttpProvider(BLOCKCHAIN_ENDPOINT)
-    );
+    try {
+      web3 = new Web3(
+        new Web3.providers.HttpProvider(BLOCKCHAIN_ENDPOINT)
+      );
 
-    CertificationInstance.setProvider(web3.currentProvider);
-    
-    if (typeof CertificationInstance.currentProvider.sendAsync !== "function") {
-      CertificationInstance.currentProvider.sendAsync = function() {
-        return CertificationInstance.currentProvider.send.apply(
-          CertificationInstance.currentProvider,
-          arguments
-        );
-      };
+      CertificationInstance.setProvider(web3.currentProvider);
+      
+      if (typeof CertificationInstance.currentProvider.sendAsync !== "function") {
+        CertificationInstance.currentProvider.sendAsync = function() {
+          return CertificationInstance.currentProvider.send.apply(
+            CertificationInstance.currentProvider,
+            arguments
+          );
+        };
+      }
+
+      console.log("Connected to blockchain at: " + web3.currentProvider.host);
+      
+      // Test the connection
+      web3.eth.net.isListening()
+        .then(() => console.log('Web3 is connected'))
+        .catch(err => console.error('Web3 connection error:', err));
+
+    } catch (error) {
+      console.error("Failed to connect to Web3:", error);
     }
-
-    console.log("Connected to blockchain at: " + web3.currentProvider.host);
   };
 
   const getCertificateData = (certificateId) => {
@@ -144,10 +154,14 @@ function CertificateDisplay() {
   };
 
   useEffect(() => {
+    console.log("Environment:", process.env.NODE_ENV);
     console.log("Blockchain endpoint:", process.env.REACT_APP_BLOCKCHAIN_ENDPOINT);
+    
     connectWeb3();
+    
     getCertificateData(id)
       .then((data) => {
+        console.log("Retrieved certificate data:", data);
         console.log("Here's the retrieved certificate data of id", id);
         console.log(data);
         try {
@@ -180,7 +194,7 @@ function CertificateDisplay() {
         }
       })
       .catch((err) => {
-        console.error("Error fetching certificate:", err);
+        console.error("Detailed error fetching certificate:", err);
         setCertExists(false);
         setLoading(false);
       });
