@@ -1,10 +1,10 @@
-# Certoshi - A Decentralized Certificate Issuance and Verification System powered by Ethereum Smart Contracts
+# Certifi - A Decentralized Certificate Issuance and Verification System powered by Ethereum Smart Contracts
 
 ![](https://i.imgur.com/fPlaUCp.jpg)
 
 You can view the DEMO of the application [here](https://youtu.be/ZZOoJguZkeY)!! 🚀
 
-You are welcome to visit the live website connected to the Ethereum Rinkeby network at https://certoshi.vercel.app/ 😁
+You are welcome to visit the live website connected to the Ethereum Rinkeby network at https://Certifi.vercel.app/ 😁
 
 [Click here to view other screenshots of our application!](#Use-Cases)
 
@@ -38,8 +38,8 @@ Please follow the instructions below closely. As some packages are not well main
 ### Downloading repository
 
 ```bash
-git clone https://github.com/thawalk/Certoshi.git
-cd Certoshi
+git clone https://github.com/thawalk/Certifi.git
+cd Certifi
 ```
 
 ### Setting up Blockchain on Local Network
@@ -83,7 +83,7 @@ Visit [Truffle Ganache](https://www.trufflesuite.com/ganache) to download the ap
 
 2. Create a ganache workspace & run ganache blockchain network
 
-Click on 'New Workspace' and under 'Add Project', select the `truffle-config.js` file in the Certoshi directory. This should create a new workspace project with the same truffle settings defined in the `truffle-config.js` file.
+Click on 'New Workspace' and under 'Add Project', select the `truffle-config.js` file in the Certifi directory. This should create a new workspace project with the same truffle settings defined in the `truffle-config.js` file.
 
 ![](https://i.imgur.com/gnWVdrN.png)
 
@@ -97,7 +97,7 @@ Once created with the workspace open, the local ganache blockchain network shoul
 
 Npm scripts has been included for ease of contract deployment. You may view the commands used under `package.json` for better understanding
 
-In the root directory of Certoshi
+In the root directory of Certifi
 
 ```bash
 truffle compile
@@ -120,7 +120,7 @@ npm install -g ganache-cli
 npm run ganache
 ```
 
-In the root directory of Certoshi
+In the root directory of Certifi
 
 3. Deploy Smart Contracts
 
@@ -252,7 +252,7 @@ docker run -v %(cd)%:/contracts mythril/myth analyze /contracts/Certification.so
 
 ## Use-Cases
 
-You are welcome to visit the live website connected to the Ethereum Rinkeby network at https://certoshi.vercel.app/ 😁
+You are welcome to visit the live website connected to the Ethereum Rinkeby network at https://Certifi.vercel.app/ 😁
 
 There are **4 main Use Cases**:
 
