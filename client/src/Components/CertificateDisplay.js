@@ -115,7 +115,7 @@ function CertificateDisplay() {
   const connectWeb3 = () => {
     const DEFAULT_ENDPOINTS = {
       development: "http://localhost:7545",
-      production: "http//127.0.0.1:7545" // Replace with your actual endpoint
+      production: "http://127.0.0.1:7545" // Replace with your actual endpoint
     };
     
     const BLOCKCHAIN_ENDPOINT = process.env.REACT_APP_BLOCKCHAIN_ENDPOINT || 
