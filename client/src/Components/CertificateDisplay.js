@@ -113,7 +113,14 @@ function CertificateDisplay() {
 
   let web3;
   const connectWeb3 = () => {
-    const BLOCKCHAIN_ENDPOINT = process.env.REACT_APP_BLOCKCHAIN_ENDPOINT || "http://localhost:7545";
+    const DEFAULT_ENDPOINTS = {
+      development: "http://localhost:7545",
+      production: "https://your-ganache-server-url:7545" // Replace with your actual endpoint
+    };
+    
+    const BLOCKCHAIN_ENDPOINT = process.env.REACT_APP_BLOCKCHAIN_ENDPOINT || 
+      DEFAULT_ENDPOINTS[process.env.NODE_ENV] || 
+      DEFAULT_ENDPOINTS.development;
     
     try {
       web3 = new Web3(
@@ -131,15 +138,21 @@ function CertificateDisplay() {
         };
       }
 
-      console.log("Connected to blockchain at: " + web3.currentProvider.host);
+      console.log("Attempting to connect to blockchain at:", BLOCKCHAIN_ENDPOINT);
       
-      // Test the connection
-      web3.eth.net.isListening()
-        .then(() => console.log('Web3 is connected'))
-        .catch(err => console.error('Web3 connection error:', err));
+      return web3.eth.net.isListening()
+        .then(() => {
+          console.log('Successfully connected to Web3');
+          return true;
+        })
+        .catch(err => {
+          console.error('Web3 connection error:', err);
+          return false;
+        });
 
     } catch (error) {
-      console.error("Failed to connect to Web3:", error);
+      console.error("Failed to initialize Web3:", error);
+      return Promise.resolve(false);
     }
   };
 
@@ -157,47 +170,54 @@ function CertificateDisplay() {
     console.log("Environment:", process.env.NODE_ENV);
     console.log("Blockchain endpoint:", process.env.REACT_APP_BLOCKCHAIN_ENDPOINT);
     
-    connectWeb3();
-    
-    getCertificateData(id)
-      .then((data) => {
-        console.log("Retrieved certificate data:", data);
-        console.log("Here's the retrieved certificate data of id", id);
-        console.log(data);
-        try {
-          console.log("candidateName", data[0], decrypt(data[0], id));
-          console.log("courseName", data[1]);
-          console.log("creationDate", data[2], decrypt(data[2], id));
-          console.log("instituteName", data[3]);
-          console.log("instituteAcronym", data[4]);
-          console.log("instituteLink", data[5]);
-          console.log("revoked", data[6]);
-
-          setCertData((prev) => ({
-            ...prev,
-            candidateName: decrypt(data[0], id),
-            courseName: data[1],
-            creationDate: decrypt(data[2], id),
-            instituteName: data[3],
-            instituteAcronym: data[4],
-            instituteLink: data[5],
-            revoked: data[6],
-          }));
-
-          setCertExists(true);
-          setLoading(false);
-        } catch (err) {
-          // TODO: Remove this try catch block.
-          // Should not enter here at all. Catching just in case
-          setCertExists(false); //remove
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.error("Detailed error fetching certificate:", err);
+    connectWeb3().then(connected => {
+      if (!connected) {
+        console.error("Failed to connect to blockchain");
         setCertExists(false);
         setLoading(false);
-      });
+        return;
+      }
+      
+      getCertificateData(id)
+        .then((data) => {
+          console.log("Retrieved certificate data:", data);
+          console.log("Here's the retrieved certificate data of id", id);
+          console.log(data);
+          try {
+            console.log("candidateName", data[0], decrypt(data[0], id));
+            console.log("courseName", data[1]);
+            console.log("creationDate", data[2], decrypt(data[2], id));
+            console.log("instituteName", data[3]);
+            console.log("instituteAcronym", data[4]);
+            console.log("instituteLink", data[5]);
+            console.log("revoked", data[6]);
+
+            setCertData((prev) => ({
+              ...prev,
+              candidateName: decrypt(data[0], id),
+              courseName: data[1],
+              creationDate: decrypt(data[2], id),
+              instituteName: data[3],
+              instituteAcronym: data[4],
+              instituteLink: data[5],
+              revoked: data[6],
+            }));
+
+            setCertExists(true);
+            setLoading(false);
+          } catch (err) {
+            // TODO: Remove this try catch block.
+            // Should not enter here at all. Catching just in case
+            setCertExists(false); //remove
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.error("Detailed error fetching certificate:", err);
+          setCertExists(false);
+          setLoading(false);
+        });
+    });
   }, []);
   return (
     <>
