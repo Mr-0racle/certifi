@@ -113,23 +113,14 @@ function CertificateDisplay() {
 
   let web3;
   const connectWeb3 = () => {
-    if (
-      process.env.NODE_ENV === "development" &&
-      process.env.REACT_APP_STAGE !== "testnet"
-    ) {
-      web3 = new Web3(
-        new Web3.providers.HttpProvider(process.env.REACT_APP_LOCAL_ENDPOINT)
-      );
-    } else {
-      web3 = new Web3(
-        new HDWalletProvider(
-          null,
-          process.env.REACT_APP_INFURA_PROJECT_ENDPOINT
-        )
-      );
-    }
+    const BLOCKCHAIN_ENDPOINT = process.env.REACT_APP_BLOCKCHAIN_ENDPOINT || "http://localhost:7545";
+    
+    web3 = new Web3(
+      new Web3.providers.HttpProvider(BLOCKCHAIN_ENDPOINT)
+    );
+
     CertificationInstance.setProvider(web3.currentProvider);
-    // hack for web3@1.0.0 support for localhost testrpc, see https://github.com/trufflesuite/truffle-contract/issues/56#issuecomment-331084530
+    
     if (typeof CertificationInstance.currentProvider.sendAsync !== "function") {
       CertificationInstance.currentProvider.sendAsync = function() {
         return CertificationInstance.currentProvider.send.apply(
@@ -139,17 +130,7 @@ function CertificateDisplay() {
       };
     }
 
-    if (
-      process.env.NODE_ENV === "development" &&
-      process.env.REACT_APP_STAGE !== "testnet"
-    ) {
-      console.log("Current host: " + web3.currentProvider.host);
-    } else {
-      console.log(
-        "Current host: " +
-          web3.currentProvider.engine._providers[2].provider.host
-      );
-    }
+    console.log("Connected to blockchain at: " + web3.currentProvider.host);
   };
 
   const getCertificateData = (certificateId) => {
@@ -162,13 +143,8 @@ function CertificateDisplay() {
       });
   };
 
-  useEffect(async () => {
-    console.log("REACT_APP_STAGE", process.env.REACT_APP_STAGE);
-    console.log("NODE_ENV", process.env.NODE_ENV);
-    console.log(
-      "REACT_APP_INFURA_PROJECT_ENDPOINT",
-      process.env.REACT_APP_INFURA_PROJECT_ENDPOINT
-    );
+  useEffect(() => {
+    console.log("Blockchain endpoint:", process.env.REACT_APP_BLOCKCHAIN_ENDPOINT);
     connectWeb3();
     getCertificateData(id)
       .then((data) => {
@@ -204,7 +180,7 @@ function CertificateDisplay() {
         }
       })
       .catch((err) => {
-        console.log("Certificate of id", id, "does not exist");
+        console.error("Error fetching certificate:", err);
         setCertExists(false);
         setLoading(false);
       });
