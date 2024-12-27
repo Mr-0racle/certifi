@@ -63,7 +63,7 @@ const ListText = withStyles({
 const styles = (theme) => ({
   container: {
     display: "flex",
-    backgroundColor: "#121212", // Dark background
+    backgroundColor: "#ffffff", // Dark background
   },
   paper: {
     [theme.breakpoints.up("sm")]: {
@@ -81,8 +81,8 @@ const styles = (theme) => ({
     flexDirection: "column",
     alignItems: "center",
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-    backgroundColor: "#1e1e1e", // Darker paper background
-    color: "#ffffff", // Light text
+    backgroundColor: "#ffffff", // Darker paper background
+    color: "#1e1e1e", // Light text
   },
   form: {
     width: "100%", // Fix IE 11 issue.
